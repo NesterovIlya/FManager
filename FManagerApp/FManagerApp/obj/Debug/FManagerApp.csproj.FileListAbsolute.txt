@@ -1,0 +1,9 @@
+D:\work\FManager\FManagerApp\FManagerApp\bin\Debug\FManagerApp.exe.config
+D:\work\FManager\FManagerApp\FManagerApp\bin\Debug\FManagerApp.exe
+D:\work\FManager\FManagerApp\FManagerApp\bin\Debug\FManagerApp.pdb
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.csprojResolveAssemblyReference.cache
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Form1.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Properties.Resources.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.csproj.GenerateResource.Cache
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.exe
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.pdb
