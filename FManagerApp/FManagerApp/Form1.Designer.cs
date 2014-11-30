@@ -29,67 +29,83 @@
         private void InitializeComponent()
         {
             this.LeftPanel = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LeftDrivesPanel = new System.Windows.Forms.Panel();
+            this.LeftListView = new System.Windows.Forms.ListView();
+            this.NameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TypeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SizeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DateHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeftPathTextBox = new System.Windows.Forms.TextBox();
-            this.LeftListBox = new System.Windows.Forms.ListBox();
             this.ShowButton = new System.Windows.Forms.Button();
             this.CopyButton = new System.Windows.Forms.Button();
             this.MoveButton = new System.Windows.Forms.Button();
             this.RenameButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.RightPanel = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.RightListView = new System.Windows.Forms.ListView();
+            this.NameHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TypeHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SizeHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DateHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RightPathTextBox = new System.Windows.Forms.TextBox();
-            this.RightListBox = new System.Windows.Forms.ListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.BottomPanel = new System.Windows.Forms.Panel();
+            this.RightDrivesPanel = new System.Windows.Forms.Panel();
             this.LeftPanel.SuspendLayout();
             this.RightPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.BottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // LeftPanel
             // 
-            this.LeftPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.LeftPanel.Controls.Add(this.button3);
-            this.LeftPanel.Controls.Add(this.button2);
-            this.LeftPanel.Controls.Add(this.button1);
+            this.LeftPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.LeftPanel.Controls.Add(this.LeftDrivesPanel);
+            this.LeftPanel.Controls.Add(this.LeftListView);
             this.LeftPanel.Controls.Add(this.LeftPathTextBox);
-            this.LeftPanel.Controls.Add(this.LeftListBox);
             this.LeftPanel.Location = new System.Drawing.Point(12, 33);
             this.LeftPanel.Name = "LeftPanel";
             this.LeftPanel.Size = new System.Drawing.Size(456, 495);
             this.LeftPanel.TabIndex = 0;
             // 
-            // button3
+            // LeftDrivesPanel
             // 
-            this.button3.Location = new System.Drawing.Point(90, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(37, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "E";
-            this.button3.UseVisualStyleBackColor = true;
+            this.LeftDrivesPanel.Location = new System.Drawing.Point(0, 0);
+            this.LeftDrivesPanel.Name = "LeftDrivesPanel";
+            this.LeftDrivesPanel.Size = new System.Drawing.Size(456, 33);
+            this.LeftDrivesPanel.TabIndex = 6;
             // 
-            // button2
+            // LeftListView
             // 
-            this.button2.Location = new System.Drawing.Point(47, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(37, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "D";
-            this.button2.UseVisualStyleBackColor = true;
+            this.LeftListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.NameHeader,
+            this.TypeHeader,
+            this.SizeHeader,
+            this.DateHeader});
+            this.LeftListView.Location = new System.Drawing.Point(3, 60);
+            this.LeftListView.Name = "LeftListView";
+            this.LeftListView.Size = new System.Drawing.Size(448, 432);
+            this.LeftListView.TabIndex = 5;
+            this.LeftListView.UseCompatibleStateImageBehavior = false;
+            this.LeftListView.View = System.Windows.Forms.View.Details;
             // 
-            // button1
+            // NameHeader
             // 
-            this.button1.Location = new System.Drawing.Point(4, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "C";
-            this.button1.UseVisualStyleBackColor = true;
+            this.NameHeader.Text = "Имя";
+            this.NameHeader.Width = 130;
+            // 
+            // TypeHeader
+            // 
+            this.TypeHeader.Text = "Тип";
+            this.TypeHeader.Width = 66;
+            // 
+            // SizeHeader
+            // 
+            this.SizeHeader.Text = "Размер";
+            this.SizeHeader.Width = 76;
+            // 
+            // DateHeader
+            // 
+            this.DateHeader.Text = "Дата";
+            this.DateHeader.Width = 172;
             // 
             // LeftPathTextBox
             // 
@@ -97,18 +113,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LeftPathTextBox.Location = new System.Drawing.Point(3, 33);
             this.LeftPathTextBox.Name = "LeftPathTextBox";
-            this.LeftPathTextBox.Size = new System.Drawing.Size(449, 20);
+            this.LeftPathTextBox.Size = new System.Drawing.Size(448, 20);
             this.LeftPathTextBox.TabIndex = 1;
-            // 
-            // LeftListBox
-            // 
-            this.LeftListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LeftListBox.FormattingEnabled = true;
-            this.LeftListBox.Location = new System.Drawing.Point(3, 59);
-            this.LeftListBox.Name = "LeftListBox";
-            this.LeftListBox.Size = new System.Drawing.Size(450, 433);
-            this.LeftListBox.TabIndex = 0;
             // 
             // ShowButton
             // 
@@ -157,43 +163,47 @@
             // 
             // RightPanel
             // 
-            this.RightPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.RightPanel.Controls.Add(this.button6);
-            this.RightPanel.Controls.Add(this.button5);
-            this.RightPanel.Controls.Add(this.button4);
+            this.RightPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.RightPanel.Controls.Add(this.RightListView);
             this.RightPanel.Controls.Add(this.RightPathTextBox);
-            this.RightPanel.Controls.Add(this.RightListBox);
             this.RightPanel.Location = new System.Drawing.Point(484, 33);
             this.RightPanel.Name = "RightPanel";
             this.RightPanel.Size = new System.Drawing.Size(457, 495);
             this.RightPanel.TabIndex = 7;
             // 
-            // button6
+            // RightListView
             // 
-            this.button6.Location = new System.Drawing.Point(89, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(37, 23);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "E";
-            this.button6.UseVisualStyleBackColor = true;
+            this.RightListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.NameHeader1,
+            this.TypeHeader2,
+            this.SizeHeader3,
+            this.DateHeader4});
+            this.RightListView.Location = new System.Drawing.Point(3, 59);
+            this.RightListView.Name = "RightListView";
+            this.RightListView.Size = new System.Drawing.Size(449, 432);
+            this.RightListView.TabIndex = 7;
+            this.RightListView.UseCompatibleStateImageBehavior = false;
+            this.RightListView.View = System.Windows.Forms.View.Details;
             // 
-            // button5
+            // NameHeader1
             // 
-            this.button5.Location = new System.Drawing.Point(46, 4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(37, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "D";
-            this.button5.UseVisualStyleBackColor = true;
+            this.NameHeader1.Text = "Имя";
+            this.NameHeader1.Width = 130;
             // 
-            // button4
+            // TypeHeader2
             // 
-            this.button4.Location = new System.Drawing.Point(3, 4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(37, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "C";
-            this.button4.UseVisualStyleBackColor = true;
+            this.TypeHeader2.Text = "Тип";
+            this.TypeHeader2.Width = 66;
+            // 
+            // SizeHeader3
+            // 
+            this.SizeHeader3.Text = "Размер";
+            this.SizeHeader3.Width = 76;
+            // 
+            // DateHeader4
+            // 
+            this.DateHeader4.Text = "Дата";
+            this.DateHeader4.Width = 172;
             // 
             // RightPathTextBox
             // 
@@ -202,47 +212,49 @@
             this.RightPathTextBox.Size = new System.Drawing.Size(449, 20);
             this.RightPathTextBox.TabIndex = 2;
             // 
-            // RightListBox
+            // BottomPanel
             // 
-            this.RightListBox.FormattingEnabled = true;
-            this.RightListBox.Location = new System.Drawing.Point(3, 59);
-            this.RightListBox.Name = "RightListBox";
-            this.RightListBox.Size = new System.Drawing.Size(451, 433);
-            this.RightListBox.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.BottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.AutoSize = true;
-            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel1.Controls.Add(this.ShowButton);
-            this.panel1.Controls.Add(this.DeleteButton);
-            this.panel1.Controls.Add(this.CopyButton);
-            this.panel1.Controls.Add(this.RenameButton);
-            this.panel1.Controls.Add(this.MoveButton);
-            this.panel1.Location = new System.Drawing.Point(12, 539);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(932, 43);
-            this.panel1.TabIndex = 8;
+            this.BottomPanel.AutoSize = true;
+            this.BottomPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BottomPanel.Controls.Add(this.ShowButton);
+            this.BottomPanel.Controls.Add(this.DeleteButton);
+            this.BottomPanel.Controls.Add(this.CopyButton);
+            this.BottomPanel.Controls.Add(this.RenameButton);
+            this.BottomPanel.Controls.Add(this.MoveButton);
+            this.BottomPanel.Location = new System.Drawing.Point(12, 539);
+            this.BottomPanel.Name = "BottomPanel";
+            this.BottomPanel.Size = new System.Drawing.Size(932, 43);
+            this.BottomPanel.TabIndex = 8;
+            // 
+            // RightDrivesPanel
+            // 
+            this.RightDrivesPanel.Location = new System.Drawing.Point(484, 33);
+            this.RightDrivesPanel.Name = "RightDrivesPanel";
+            this.RightDrivesPanel.Size = new System.Drawing.Size(457, 33);
+            this.RightDrivesPanel.TabIndex = 8;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(954, 594);
+            this.Controls.Add(this.RightDrivesPanel);
             this.Controls.Add(this.RightPanel);
             this.Controls.Add(this.LeftPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.BottomPanel);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FManager";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.LeftPanel.ResumeLayout(false);
             this.LeftPanel.PerformLayout();
             this.RightPanel.ResumeLayout(false);
             this.RightPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.BottomPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,17 +269,21 @@
         private System.Windows.Forms.Button RenameButton;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Panel RightPanel;
-        private System.Windows.Forms.ListBox LeftListBox;
-        private System.Windows.Forms.ListBox RightListBox;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox LeftPathTextBox;
         private System.Windows.Forms.TextBox RightPathTextBox;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel BottomPanel;
+        private System.Windows.Forms.ListView LeftListView;
+        private System.Windows.Forms.ColumnHeader NameHeader;
+        private System.Windows.Forms.ColumnHeader TypeHeader;
+        private System.Windows.Forms.ColumnHeader SizeHeader;
+        private System.Windows.Forms.ColumnHeader DateHeader;
+        private System.Windows.Forms.ListView RightListView;
+        private System.Windows.Forms.ColumnHeader NameHeader1;
+        private System.Windows.Forms.ColumnHeader TypeHeader2;
+        private System.Windows.Forms.ColumnHeader SizeHeader3;
+        private System.Windows.Forms.ColumnHeader DateHeader4;
+        private System.Windows.Forms.Panel LeftDrivesPanel;
+        private System.Windows.Forms.Panel RightDrivesPanel;
     }
 }
 
