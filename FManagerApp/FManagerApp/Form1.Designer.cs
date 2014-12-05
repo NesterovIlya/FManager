@@ -80,12 +80,16 @@
             this.TypeHeader,
             this.SizeHeader,
             this.DateHeader});
+            this.LeftListView.FullRowSelect = true;
+            this.LeftListView.GridLines = true;
+            this.LeftListView.HideSelection = false;
             this.LeftListView.Location = new System.Drawing.Point(3, 60);
             this.LeftListView.Name = "LeftListView";
             this.LeftListView.Size = new System.Drawing.Size(448, 432);
             this.LeftListView.TabIndex = 5;
             this.LeftListView.UseCompatibleStateImageBehavior = false;
             this.LeftListView.View = System.Windows.Forms.View.Details;
+            this.LeftListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LeftListView_MouseDoubleClick);
             // 
             // NameHeader
             // 
@@ -178,17 +182,21 @@
             this.TypeHeader2,
             this.SizeHeader3,
             this.DateHeader4});
+            this.RightListView.FullRowSelect = true;
+            this.RightListView.GridLines = true;
+            this.RightListView.HideSelection = false;
             this.RightListView.Location = new System.Drawing.Point(3, 59);
             this.RightListView.Name = "RightListView";
             this.RightListView.Size = new System.Drawing.Size(449, 432);
             this.RightListView.TabIndex = 7;
             this.RightListView.UseCompatibleStateImageBehavior = false;
             this.RightListView.View = System.Windows.Forms.View.Details;
+            this.RightListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RightListView_MouseDoubleClick);
             // 
             // NameHeader1
             // 
             this.NameHeader1.Text = "Имя";
-            this.NameHeader1.Width = 130;
+            this.NameHeader1.Width = 186;
             // 
             // TypeHeader2
             // 
@@ -198,12 +206,12 @@
             // SizeHeader3
             // 
             this.SizeHeader3.Text = "Размер";
-            this.SizeHeader3.Width = 76;
+            this.SizeHeader3.Width = 91;
             // 
             // DateHeader4
             // 
             this.DateHeader4.Text = "Дата";
-            this.DateHeader4.Width = 172;
+            this.DateHeader4.Width = 100;
             // 
             // RightPathTextBox
             // 
