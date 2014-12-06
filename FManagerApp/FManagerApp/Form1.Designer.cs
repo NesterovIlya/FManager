@@ -119,6 +119,7 @@
             this.LeftPathTextBox.Name = "LeftPathTextBox";
             this.LeftPathTextBox.Size = new System.Drawing.Size(448, 20);
             this.LeftPathTextBox.TabIndex = 1;
+            this.LeftPathTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LeftPathTextBox_KeyDown);
             // 
             // ShowButton
             // 
@@ -219,6 +220,7 @@
             this.RightPathTextBox.Name = "RightPathTextBox";
             this.RightPathTextBox.Size = new System.Drawing.Size(449, 20);
             this.RightPathTextBox.TabIndex = 2;
+            this.RightPathTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RightPathTextBox_KeyDown);
             // 
             // BottomPanel
             // 

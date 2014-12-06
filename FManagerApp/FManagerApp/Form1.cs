@@ -17,7 +17,7 @@ namespace FManagerApp
         private List<Button> RightLogicalDrives = new List<Button>();
 
         private string LeftViewRootPath = "C:\\";
-        private string RightViewRootPath = "D:\\";
+        private string RightViewRootPath = "C:\\";
 
         private FileSystemWatcher LeftViewObserver = new FileSystemWatcher();
         private FileSystemWatcher RightViewObserver = new FileSystemWatcher();
@@ -205,12 +205,14 @@ namespace FManagerApp
             Button button = sender as Button;
             if (LeftPanel.Contains(button))
             {
+                //данная кнопка принадлежит левой панели
                 LeftViewRootPath = button.Text + ":\\";
                 LeftPathTextBox.Text = LeftViewRootPath;
                 UpdateListView(LeftListView, LeftViewRootPath);
             }
             else
             {
+                //данная кнопка принадлежит правой панели
                 RightViewRootPath = button.Text + ":\\";
                 RightPathTextBox.Text = RightViewRootPath;
                 UpdateListView(RightListView, RightViewRootPath);
@@ -253,6 +255,42 @@ namespace FManagerApp
             RightViewRootPath += RightListView.SelectedItems[0].SubItems[0].Text;
             RightPathTextBox.Text = RightViewRootPath;
             UpdateListView(RightListView, RightViewRootPath);
+        }
+
+        private void LeftPathTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                TextBox textBox = sender as TextBox;
+                if (Directory.Exists(textBox.Text))
+                {
+                    LeftViewRootPath = textBox.Text;
+                    UpdateListView(LeftListView, LeftViewRootPath);
+                }
+                else
+                {
+                    MessageBox.Show("Неверный путь!");
+                    textBox.Text = LeftViewRootPath;
+                }
+            }
+        }
+
+        private void RightPathTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                TextBox textBox = sender as TextBox;
+                if (Directory.Exists(textBox.Text))
+                {
+                    RightViewRootPath = textBox.Text;
+                    UpdateListView(RightListView, RightViewRootPath);
+                }
+                else
+                {
+                    MessageBox.Show("Неверный путь!");
+                    textBox.Text = RightViewRootPath;
+                }
+            }
         }
 
 
