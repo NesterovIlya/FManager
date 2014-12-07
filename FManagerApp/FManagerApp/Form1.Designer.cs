@@ -89,6 +89,7 @@
             this.LeftListView.TabIndex = 5;
             this.LeftListView.UseCompatibleStateImageBehavior = false;
             this.LeftListView.View = System.Windows.Forms.View.Details;
+            this.LeftListView.Enter += new System.EventHandler(this.LeftListView_Enter);
             this.LeftListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LeftListView_MouseDoubleClick);
             // 
             // NameHeader
@@ -138,6 +139,7 @@
             this.CopyButton.TabIndex = 3;
             this.CopyButton.Text = "Копирование";
             this.CopyButton.UseVisualStyleBackColor = true;
+            this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
             // 
             // MoveButton
             // 
@@ -192,6 +194,7 @@
             this.RightListView.TabIndex = 7;
             this.RightListView.UseCompatibleStateImageBehavior = false;
             this.RightListView.View = System.Windows.Forms.View.Details;
+            this.RightListView.Enter += new System.EventHandler(this.RightListView_Enter);
             this.RightListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.RightListView_MouseDoubleClick);
             // 
             // NameHeader1

@@ -16,3 +16,4 @@ D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.csprojResolveAss
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Form1.resources
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Properties.Resources.resources
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.csproj.GenerateResource.Cache
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.CopyForm.resources

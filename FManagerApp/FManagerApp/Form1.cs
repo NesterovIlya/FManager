@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using FManagerApp.Forms;
 
 namespace FManagerApp
 {
@@ -21,6 +22,8 @@ namespace FManagerApp
 
         private FileSystemWatcher LeftViewObserver = new FileSystemWatcher();
         private FileSystemWatcher RightViewObserver = new FileSystemWatcher();
+
+        private bool isLeftActive = true;
 
         public Form1()
         {
@@ -126,11 +129,11 @@ namespace FManagerApp
                     ));
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 MessageBox.Show("Устройство не готово!");
             }
-            catch (UnauthorizedAccessException e)
+            catch (UnauthorizedAccessException)
             {
                 MessageBox.Show("Отказано в доступе!");
             }
@@ -250,6 +253,7 @@ namespace FManagerApp
                 RightViewRootPath = Directory.GetParent(RightViewRootPath).FullName;
                 RightPathTextBox.Text = RightViewRootPath;
                 UpdateListView(RightListView, RightViewRootPath);
+                return;
             }
             if (RightViewRootPath[RightViewRootPath.Length - 1] != '\\') RightViewRootPath += "\\";
             RightViewRootPath += RightListView.SelectedItems[0].SubItems[0].Text;
@@ -291,6 +295,58 @@ namespace FManagerApp
                     textBox.Text = RightViewRootPath;
                 }
             }
+        }
+
+        private void CopyButton_Click(object sender, EventArgs e)
+        {
+            CopyForm copyForm = new CopyForm();
+            List<FileSystemInfo> checkedfilesAndDirectories = new List<FileSystemInfo>();
+
+            if (isLeftActive)
+            {
+                foreach (ListViewItem item in LeftListView.SelectedItems)
+                {
+                    if (item.SubItems[2].Text.Equals("<папка>"))
+                    {
+                        checkedfilesAndDirectories.Add(new DirectoryInfo(Path.Combine(LeftViewRootPath, item.SubItems[0].Text)));
+                    }
+                    else
+                    {
+                        string filename = item.SubItems[0].Text;
+                        if (item.SubItems[1].Text != "") filename = filename + "." + item.SubItems[1].Text;
+                        checkedfilesAndDirectories.Add(new FileInfo(Path.Combine(LeftViewRootPath, filename)));
+                    }
+                }
+                copyForm.SetParametres(checkedfilesAndDirectories, LeftViewRootPath, RightViewRootPath);
+            }
+            else
+            {
+                foreach (ListViewItem item in RightListView.SelectedItems)
+                {
+                    if (item.SubItems[2].Text.Equals("<папка>"))
+                    {
+                        checkedfilesAndDirectories.Add(new DirectoryInfo(Path.Combine(RightViewRootPath, item.SubItems[0].Text)));
+                    }
+                    else
+                    {
+                        string filename = item.SubItems[0].Text;
+                        if (item.SubItems[1].Text != "") filename = filename + "." + item.SubItems[1].Text;
+                        checkedfilesAndDirectories.Add(new FileInfo(Path.Combine(RightViewRootPath, filename)));
+                    }
+                }
+                copyForm.SetParametres(checkedfilesAndDirectories, RightViewRootPath, LeftViewRootPath);
+            }
+            copyForm.Show();
+        }
+
+        private void LeftListView_Enter(object sender, EventArgs e)
+        {
+            isLeftActive = true;
+        }
+
+        private void RightListView_Enter(object sender, EventArgs e)
+        {
+            isLeftActive = false;
         }
 
 
