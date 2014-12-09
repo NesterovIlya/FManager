@@ -139,7 +139,7 @@ namespace FManagerApp.Forms
             });
             progressState.currentFileNameProgress = fileNameProgressHandler as IProgress<string>;
 
-            var progressHandlerForAllFiles = new Progress<long>(value =>
+            var progressHandlerForAllFiles = new Progress<int>(value =>
             {
                 CopiedFilesSize += value;
                 double progress = (double)CopiedFilesSize / TotalSize * 100;
@@ -165,7 +165,8 @@ namespace FManagerApp.Forms
                             //копируем файл
                             FileInfo fileInfo = fsi as FileInfo;
                             progressState.currentFileNameProgress.Report(fileInfo.Name);
-                            fileInfo.CopyTo(Path.Combine(Destination, Path.GetFileName(fileInfo.FullName)), true);
+                            //fileInfo.CopyTo(Path.Combine(Destination, Path.GetFileName(fileInfo.Name)), true);
+                            CopyFile(fileInfo.FullName, Path.Combine(Destination, Path.GetFileName(fileInfo.Name)),progressState);
                         }
                     }
                 });
@@ -220,7 +221,8 @@ namespace FManagerApp.Forms
 
                 foreach (FileInfo file in sourceDir.GetFiles())
                 {
-                    file.CopyTo(Path.Combine(destDir.FullName,Path.GetFileName(file.FullName)),true);
+                    //file.CopyTo(Path.Combine(destDir.FullName,Path.GetFileName(file.Name)),true);
+                    CopyFile(file.FullName, Path.Combine(destDir.FullName, Path.GetFileName(file.Name)), progressState);
                 }
             }
 
@@ -230,9 +232,10 @@ namespace FManagerApp.Forms
         {
             try
             {
+
                 progressState.currentFileNameProgress.Report(Path.GetFileName(source));
 
-                int totalBytesRead = 0;
+                long totalBytesRead = 0;
 
                 Byte[] streamBuffer = new Byte[BUFFER_LENGTH];
 
@@ -241,22 +244,31 @@ namespace FManagerApp.Forms
                     long fileSize = sourceStream.Length;
                     using (FileStream destinationStream = new FileStream(destination, FileMode.Create, FileAccess.Write))
                     {
+                        int progress = 0;
+                        progressState.progressCurrentFile.Report(progress);
+                        int bytesRead = 0;
                         while (true)
                         {
-                            int bytesRead = sourceStream.Read(streamBuffer, 0, BUFFER_LENGTH);
-
+                            _cts.Token.ThrowIfCancellationRequested();
+                            bytesRead = sourceStream.Read(streamBuffer, 0, BUFFER_LENGTH);
+                            progress = (int)Math.Round(100*(double)totalBytesRead/fileSize);
                             if (bytesRead == 0)
                             {
                                 // если ничего не считали
+                                progressState.progressCurrentFile.Report(progress);
                                 break;
                             }
 
                             destinationStream.Write(streamBuffer,0,bytesRead);
+                            progressState.progressCurrentFile.Report(progress);
+                            progressState.progressAllFiles.Report(bytesRead);
                             totalBytesRead += bytesRead;
 
                             if (bytesRead < BUFFER_LENGTH)
                             {
                                 // конец
+                                progressState.progressCurrentFile.Report(progress);
+                                progressState.progressAllFiles.Report(bytesRead);
                                 break;
                             }
                         }

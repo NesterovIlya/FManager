@@ -302,44 +302,51 @@ namespace FManagerApp
 
         private void CopyButton_Click(object sender, EventArgs e)
         {
-            CopyForm copyForm = new CopyForm();
-            List<FileSystemInfo> checkedfilesAndDirectories = new List<FileSystemInfo>();
+            try
+            {
+                CopyForm copyForm = new CopyForm();
+                List<FileSystemInfo> checkedfilesAndDirectories = new List<FileSystemInfo>();
 
-            if (isLeftActive)
-            {
-                foreach (ListViewItem item in LeftListView.SelectedItems)
+                if (isLeftActive)
                 {
-                    if (item.SubItems[2].Text.Equals("<папка>"))
+                    foreach (ListViewItem item in LeftListView.SelectedItems)
                     {
-                        checkedfilesAndDirectories.Add(new DirectoryInfo(Path.Combine(LeftViewRootPath, item.SubItems[0].Text)));
+                        if (item.SubItems[2].Text.Equals("<папка>"))
+                        {
+                            checkedfilesAndDirectories.Add(new DirectoryInfo(Path.Combine(LeftViewRootPath, item.SubItems[0].Text)));
+                        }
+                        else
+                        {
+                            string filename = item.SubItems[0].Text;
+                            if (item.SubItems[1].Text != "") filename = filename + "." + item.SubItems[1].Text;
+                            checkedfilesAndDirectories.Add(new FileInfo(Path.Combine(LeftViewRootPath, filename)));
+                        }
                     }
-                    else
-                    {
-                        string filename = item.SubItems[0].Text;
-                        if (item.SubItems[1].Text != "") filename = filename + "." + item.SubItems[1].Text;
-                        checkedfilesAndDirectories.Add(new FileInfo(Path.Combine(LeftViewRootPath, filename)));
-                    }
+                    copyForm.SetParametres(checkedfilesAndDirectories, LeftViewRootPath, RightViewRootPath);
                 }
-                copyForm.SetParametres(checkedfilesAndDirectories, LeftViewRootPath, RightViewRootPath);
-            }
-            else
-            {
-                foreach (ListViewItem item in RightListView.SelectedItems)
+                else
                 {
-                    if (item.SubItems[2].Text.Equals("<папка>"))
+                    foreach (ListViewItem item in RightListView.SelectedItems)
                     {
-                        checkedfilesAndDirectories.Add(new DirectoryInfo(Path.Combine(RightViewRootPath, item.SubItems[0].Text)));
+                        if (item.SubItems[2].Text.Equals("<папка>"))
+                        {
+                            checkedfilesAndDirectories.Add(new DirectoryInfo(Path.Combine(RightViewRootPath, item.SubItems[0].Text)));
+                        }
+                        else
+                        {
+                            string filename = item.SubItems[0].Text;
+                            if (item.SubItems[1].Text != "") filename = filename + "." + item.SubItems[1].Text;
+                            checkedfilesAndDirectories.Add(new FileInfo(Path.Combine(RightViewRootPath, filename)));
+                        }
                     }
-                    else
-                    {
-                        string filename = item.SubItems[0].Text;
-                        if (item.SubItems[1].Text != "") filename = filename + "." + item.SubItems[1].Text;
-                        checkedfilesAndDirectories.Add(new FileInfo(Path.Combine(RightViewRootPath, filename)));
-                    }
+                    copyForm.SetParametres(checkedfilesAndDirectories, RightViewRootPath, LeftViewRootPath);
                 }
-                copyForm.SetParametres(checkedfilesAndDirectories, RightViewRootPath, LeftViewRootPath);
+                copyForm.Show();
             }
-            copyForm.Show();
+            catch (Exception ex)
+            {
+                MessageBox.Show("FATAL: "+ex.Message + "\n" + ex.StackTrace);
+            }
         }
 
         private void LeftListView_Enter(object sender, EventArgs e)
