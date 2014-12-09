@@ -14,6 +14,8 @@ namespace FManagerApp.Forms
 {
     public partial class CopyForm : Form
     {
+
+        private const int BUFFER_LENGTH = 12228;
         private List<FileSystemInfo> FilesAndDirectories;
 
         private string Source;
@@ -23,6 +25,10 @@ namespace FManagerApp.Forms
         private long TotalSize;
 
         private long TotalFilesCount;
+
+        private long CopiedFilesCount;
+
+        private long CopiedFilesSize;
 
         public CopyForm()
         {
@@ -41,6 +47,8 @@ namespace FManagerApp.Forms
             long filesCount = 0;
             TotalSize = GetAllFilesSize(ref filesCount);
             TotalFilesCount = filesCount;
+            CopiedFilesCount = 0;
+            CopiedFilesSize = 0;
             allFilesLabel.Text = 0 + "/" + TotalFilesCount;
             sourceLabel.Text = Source;
             destinationLabel.Text = Destination;
@@ -60,7 +68,6 @@ namespace FManagerApp.Forms
                     if (dir != null)
                     {
                         size += GetDirSize(dir, ref filesCount);
-                        //filesCount += filesCount;
                     }
                     else
                     {
@@ -89,7 +96,6 @@ namespace FManagerApp.Forms
                 foreach (DirectoryInfo dir in dirs)
                 {
                     size += GetDirSize(dir, ref filesCount);
-                    //filesCount += filesCount;
                 }
             }
 
@@ -107,7 +113,6 @@ namespace FManagerApp.Forms
         {
             public IProgress<int> progressCurrentFile;
             public IProgress<string> currentFileNameProgress;
-            public IProgress<long> currentFileNumberProgress;
             public IProgress<int> progressAllFiles;
         }
 
@@ -128,35 +133,24 @@ namespace FManagerApp.Forms
 
             var fileNameProgressHandler = new Progress<string>(value =>
             {
+                CopiedFilesCount++;
                 fileNameLabel.Text = value;
+                allFilesLabel.Text = CopiedFilesCount.ToString() + "/" + TotalFilesCount;
             });
             progressState.currentFileNameProgress = fileNameProgressHandler as IProgress<string>;
 
-            var fileNumberProgressHandler = new Progress<long>(value =>
+            var progressHandlerForAllFiles = new Progress<long>(value =>
             {
-                allFilesLabel.Text = value+"/"+TotalFilesCount;
+                CopiedFilesSize += value;
+                double progress = (double)CopiedFilesSize / TotalSize * 100;
+                AllFilesProgressBar.Value = (int)Math.Round(progress);
             });
-            progressState.currentFileNumberProgress = fileNumberProgressHandler as IProgress<long>;
-
-            var progressHandlerForAlltFiles = new Progress<int>(value =>
-            {
-                AllFilesProgressBar.Value = value;
-            });
-            progressState.progressAllFiles = progressHandlerForAlltFiles as IProgress<int>;
+            progressState.progressAllFiles = progressHandlerForAllFiles as IProgress<int>;
 
             try
             {
                 await Task.Run(() =>
                 {
-                    /*for(int i=0;i!=101;i++)
-                    {
-                        token.ThrowIfCancellationRequested();
-                        Thread.Sleep(10000);
-                        progressAllFiles.Report(i);
-                        currentFileProgress.Report(i.ToString());
-                        currentFileNumberProgress.Report(i);
-                    }
-                    Thread.Sleep(1000);*/
                     foreach (FileSystemInfo fsi in FilesAndDirectories)
                     {
                         token.ThrowIfCancellationRequested();
@@ -164,7 +158,7 @@ namespace FManagerApp.Forms
                         if (dir != null)
                         {
                             //копируем директорию
-                            CopyDirectory(dir, Destination);
+                            CopyDirectory(dir, Destination, progressState);
                         }
                         else
                         {
@@ -203,7 +197,7 @@ namespace FManagerApp.Forms
                 _cts.Cancel();
         }
 
-        private void CopyDirectory(DirectoryInfo sourceDir, string destination)
+        private void CopyDirectory(DirectoryInfo sourceDir, string destination, ProgressState progressState)
         {
             string path = Path.Combine(destination, sourceDir.Name);
             if (Directory.Exists(path))
@@ -221,7 +215,7 @@ namespace FManagerApp.Forms
                 destDir.Create();
                 foreach (DirectoryInfo dir in sourceDir.GetDirectories())
                 {
-                    CopyDirectory(dir, destDir.FullName);
+                    CopyDirectory(dir, destDir.FullName, progressState);
                 }
 
                 foreach (FileInfo file in sourceDir.GetFiles())
@@ -232,8 +226,33 @@ namespace FManagerApp.Forms
 
         }
 
-        private void CopyFile(string source, string destination)
+        private void CopyFile(string source, string destination, ProgressState progressState)
         {
+            try
+            {
+                progressState.currentFileNameProgress.Report(Path.GetFileName(source));
+
+                Byte[] streamBuffer = new Byte[BUFFER_LENGTH];
+
+                using (FileStream sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read))
+                {
+                    long fileSize = sourceStream.Length;
+                    using (FileStream destinationStream = new FileStream(destination, FileMode.Create, FileAccess.Write))
+                    {
+                        while (true)
+                        {
+                            int bytesRead = sourceStream.Read(
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ошибка при копировании файла:\n"+e.Message);
+                _cts.Cancel();
+                _cts.Token.ThrowIfCancellationRequested();
+            }
+
         }
 
 

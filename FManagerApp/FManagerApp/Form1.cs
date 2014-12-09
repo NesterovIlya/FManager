@@ -211,6 +211,7 @@ namespace FManagerApp
                 //данная кнопка принадлежит левой панели
                 LeftViewRootPath = button.Text + ":\\";
                 LeftPathTextBox.Text = LeftViewRootPath;
+                LeftViewObserver.Path = LeftViewRootPath;
                 UpdateListView(LeftListView, LeftViewRootPath);
             }
             else
@@ -218,6 +219,7 @@ namespace FManagerApp
                 //данная кнопка принадлежит правой панели
                 RightViewRootPath = button.Text + ":\\";
                 RightPathTextBox.Text = RightViewRootPath;
+                RightViewObserver.Path = RightViewRootPath;
                 UpdateListView(RightListView, RightViewRootPath);
             }
         }
@@ -232,6 +234,7 @@ namespace FManagerApp
             {
                 LeftViewRootPath = Directory.GetParent(LeftViewRootPath).FullName;
                 LeftPathTextBox.Text = LeftViewRootPath;
+                LeftViewObserver.Path = LeftViewRootPath;
                 UpdateListView(LeftListView,LeftViewRootPath);
                 return;
             }
@@ -239,6 +242,7 @@ namespace FManagerApp
             if (LeftViewRootPath[LeftViewRootPath.Length - 1] != '\\') LeftViewRootPath += "\\";
             LeftViewRootPath += LeftListView.SelectedItems[0].SubItems[0].Text;
             LeftPathTextBox.Text = LeftViewRootPath;
+            LeftViewObserver.Path = LeftViewRootPath;
             UpdateListView(LeftListView, LeftViewRootPath);
         }
 
@@ -252,12 +256,14 @@ namespace FManagerApp
             {
                 RightViewRootPath = Directory.GetParent(RightViewRootPath).FullName;
                 RightPathTextBox.Text = RightViewRootPath;
+                RightViewObserver.Path = RightViewRootPath;
                 UpdateListView(RightListView, RightViewRootPath);
                 return;
             }
             if (RightViewRootPath[RightViewRootPath.Length - 1] != '\\') RightViewRootPath += "\\";
             RightViewRootPath += RightListView.SelectedItems[0].SubItems[0].Text;
             RightPathTextBox.Text = RightViewRootPath;
+            RightViewObserver.Path = RightViewRootPath;
             UpdateListView(RightListView, RightViewRootPath);
         }
 
@@ -269,6 +275,7 @@ namespace FManagerApp
                 if (Directory.Exists(textBox.Text))
                 {
                     LeftViewRootPath = textBox.Text;
+                    LeftViewObserver.Path = LeftViewRootPath;
                     UpdateListView(LeftListView, LeftViewRootPath);
                 }
                 else
@@ -287,6 +294,7 @@ namespace FManagerApp
                 if (Directory.Exists(textBox.Text))
                 {
                     RightViewRootPath = textBox.Text;
+                    RightViewObserver.Path = RightViewRootPath;
                     UpdateListView(RightListView, RightViewRootPath);
                 }
                 else
