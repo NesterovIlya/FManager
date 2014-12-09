@@ -232,6 +232,8 @@ namespace FManagerApp.Forms
             {
                 progressState.currentFileNameProgress.Report(Path.GetFileName(source));
 
+                int totalBytesRead = 0;
+
                 Byte[] streamBuffer = new Byte[BUFFER_LENGTH];
 
                 using (FileStream sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read))
@@ -241,7 +243,22 @@ namespace FManagerApp.Forms
                     {
                         while (true)
                         {
-                            int bytesRead = sourceStream.Read(
+                            int bytesRead = sourceStream.Read(streamBuffer, 0, BUFFER_LENGTH);
+
+                            if (bytesRead == 0)
+                            {
+                                // если ничего не считали
+                                break;
+                            }
+
+                            destinationStream.Write(streamBuffer,0,bytesRead);
+                            totalBytesRead += bytesRead;
+
+                            if (bytesRead < BUFFER_LENGTH)
+                            {
+                                // конец
+                                break;
+                            }
                         }
                     }
                 }

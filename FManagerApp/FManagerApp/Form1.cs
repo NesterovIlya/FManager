@@ -44,9 +44,6 @@ namespace FManagerApp
         //обновляет информацию на панели вывода существующих дисков
         private void UpdateDrivesPanel()
         {
-            LeftDrivesPanel.SuspendLayout();
-            RightDrivesPanel.SuspendLayout();
-
             //чистим предыдущее состояние
             foreach (Button btn in LeftLogicalDrives)
                 LeftDrivesPanel.Controls.Remove(btn);
@@ -59,7 +56,7 @@ namespace FManagerApp
             DriveInfo[] drivesInfo = DriveInfo.GetDrives();
             foreach (DriveInfo drive in drivesInfo)
             {
-                if (drive.DriveType != DriveType.Fixed && drive.DriveType != DriveType.Removable) return;
+                if (drive.DriveType != DriveType.Fixed && drive.DriveType != DriveType.Removable) continue;
                 Button driveBtnLeft = new Button();
                 Button driveBtnRight = new Button();
                 LeftDrivesPanel.Controls.Add(driveBtnLeft);
@@ -87,8 +84,6 @@ namespace FManagerApp
                 RightLogicalDrives.Add(driveBtnRight);
             }
 
-            LeftDrivesPanel.ResumeLayout();
-            RightDrivesPanel.ResumeLayout();
         }
 
         private void UpdateListView(ListView listView, string root)
@@ -242,7 +237,7 @@ namespace FManagerApp
             if (LeftViewRootPath[LeftViewRootPath.Length - 1] != '\\') LeftViewRootPath += "\\";
             LeftViewRootPath += LeftListView.SelectedItems[0].SubItems[0].Text;
             LeftPathTextBox.Text = LeftViewRootPath;
-            LeftViewObserver.Path = LeftViewRootPath;
+            //LeftViewObserver.Path = LeftViewRootPath;
             UpdateListView(LeftListView, LeftViewRootPath);
         }
 
