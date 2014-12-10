@@ -142,7 +142,14 @@ namespace FManagerApp.Forms
             var progressHandlerForAllFiles = new Progress<int>(value =>
             {
                 CopiedFilesSize += value;
-                double progress = (double)CopiedFilesSize / TotalSize * 100;
+                double progress;
+                if (TotalSize != 0)
+                {
+                    progress = (double)CopiedFilesSize / TotalSize * 100;
+                    if (progress > 100) progress = 100;
+                }
+                else
+                    progress = 100;
                 AllFilesProgressBar.Value = (int)Math.Round(progress);
             });
             progressState.progressAllFiles = progressHandlerForAllFiles as IProgress<int>;
@@ -210,26 +217,25 @@ namespace FManagerApp.Forms
                     _cts.Token.ThrowIfCancellationRequested();
                 }
             }
-            else
+            DirectoryInfo destDir = new DirectoryInfo(path);
+            destDir.Create();
+            foreach (DirectoryInfo dir in sourceDir.GetDirectories())
             {
-                DirectoryInfo destDir = new DirectoryInfo(path);
-                destDir.Create();
-                foreach (DirectoryInfo dir in sourceDir.GetDirectories())
-                {
-                    CopyDirectory(dir, destDir.FullName, progressState);
-                }
+                CopyDirectory(dir, destDir.FullName, progressState);
+            }
 
-                foreach (FileInfo file in sourceDir.GetFiles())
-                {
-                    //file.CopyTo(Path.Combine(destDir.FullName,Path.GetFileName(file.Name)),true);
-                    CopyFile(file.FullName, Path.Combine(destDir.FullName, Path.GetFileName(file.Name)), progressState);
-                }
+            foreach (FileInfo file in sourceDir.GetFiles())
+            {
+                //file.CopyTo(Path.Combine(destDir.FullName,Path.GetFileName(file.Name)),true);
+                CopyFile(file.FullName, Path.Combine(destDir.FullName, Path.GetFileName(file.Name)), progressState);
             }
 
         }
 
         private void CopyFile(string source, string destination, ProgressState progressState)
         {
+            FileStream sourceStream = null;
+            FileStream destinationStream = null;
             try
             {
 
@@ -239,7 +245,7 @@ namespace FManagerApp.Forms
 
                 Byte[] streamBuffer = new Byte[BUFFER_LENGTH];
 
-                using (FileStream sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read))
+                /*using (FileStream sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read))
                 {
                     long fileSize = sourceStream.Length;
                     using (FileStream destinationStream = new FileStream(destination, FileMode.Create, FileAccess.Write))
@@ -251,7 +257,20 @@ namespace FManagerApp.Forms
                         {
                             _cts.Token.ThrowIfCancellationRequested();
                             bytesRead = sourceStream.Read(streamBuffer, 0, BUFFER_LENGTH);
-                            progress = (int)Math.Round(100*(double)totalBytesRead/fileSize);
+                            if (fileSize != 0)
+                            {
+                                progress = (int)Math.Round(100 * (double)totalBytesRead / fileSize);
+
+                                if (progress == 101)
+                                    progress--;
+                            }
+                            else
+                            {
+                                progress = 100;
+                                progressState.progressCurrentFile.Report(progress);
+                                progressState.progressAllFiles.Report(0);
+                                break;
+                            }
                             if (bytesRead == 0)
                             {
                                 // если ничего не считали
@@ -273,13 +292,64 @@ namespace FManagerApp.Forms
                             }
                         }
                     }
+                }*/
+
+                sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read);
+                long fileSize = sourceStream.Length;
+                destinationStream = new FileStream(destination, FileMode.Create, FileAccess.Write);
+                int progress = 0;
+                progressState.progressCurrentFile.Report(progress);
+                int bytesRead = 0;
+                while (true)
+                {
+                    _cts.Token.ThrowIfCancellationRequested();
+                    bytesRead = sourceStream.Read(streamBuffer, 0, BUFFER_LENGTH);
+                    if (fileSize != 0)
+                    {
+                        progress = (int)Math.Round(100 * (double)totalBytesRead / fileSize);
+
+                        if (progress == 101)
+                            progress--;
+                    }
+                    else
+                    {
+                        progress = 100;
+                        progressState.progressCurrentFile.Report(progress);
+                        progressState.progressAllFiles.Report(0);
+                        break;
+                    }
+                    if (bytesRead == 0)
+                    {
+                        // если ничего не считали
+                        progressState.progressCurrentFile.Report(progress);
+                        break;
+                    }
+
+                    destinationStream.Write(streamBuffer,0,bytesRead);
+                    progressState.progressCurrentFile.Report(progress);
+                    progressState.progressAllFiles.Report(bytesRead);
+                    totalBytesRead += bytesRead;
+
+                    if (bytesRead < BUFFER_LENGTH)
+                    {
+                        // конец
+                        progressState.progressCurrentFile.Report(progress);
+                        progressState.progressAllFiles.Report(bytesRead);
+                        break;
+                    }
                 }
+
             }
             catch (Exception e)
             {
                 MessageBox.Show("Ошибка при копировании файла:\n"+e.Message);
                 _cts.Cancel();
                 _cts.Token.ThrowIfCancellationRequested();
+            }
+            finally
+            {
+                if (sourceStream != null) sourceStream.Close();
+                if (destinationStream != null) destinationStream.Close();
             }
 
         }
