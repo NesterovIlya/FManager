@@ -18,3 +18,6 @@ D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Properties.Resou
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.csproj.GenerateResource.Cache
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.CopyForm.resources
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.CopyForm.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.MoveForm.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.DeleteForm.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.RenameForm.resources

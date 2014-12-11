@@ -149,6 +149,7 @@
             this.MoveButton.TabIndex = 4;
             this.MoveButton.Text = "Перемещение";
             this.MoveButton.UseVisualStyleBackColor = true;
+            this.MoveButton.Click += new System.EventHandler(this.MoveButton_Click);
             // 
             // RenameButton
             // 
@@ -158,6 +159,7 @@
             this.RenameButton.TabIndex = 5;
             this.RenameButton.Text = "Переименование";
             this.RenameButton.UseVisualStyleBackColor = true;
+            this.RenameButton.Click += new System.EventHandler(this.RenameButton_Click);
             // 
             // DeleteButton
             // 
@@ -167,6 +169,7 @@
             this.DeleteButton.TabIndex = 6;
             this.DeleteButton.Text = "Удаление";
             this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // RightPanel
             // 

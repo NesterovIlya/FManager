@@ -208,6 +208,7 @@ namespace FManagerApp.Forms
         private void CopyDirectory(DirectoryInfo sourceDir, string destination, ProgressState progressState)
         {
             string path = Path.Combine(destination, sourceDir.Name);
+            DirectoryInfo destDir = new DirectoryInfo(path);
             if (Directory.Exists(path))
             {
                 var result = MessageBox.Show("Директория с таким именем уже существует. Выполнить слияние файлов и папок?", "", MessageBoxButtons.YesNo);
@@ -217,8 +218,10 @@ namespace FManagerApp.Forms
                     _cts.Token.ThrowIfCancellationRequested();
                 }
             }
-            DirectoryInfo destDir = new DirectoryInfo(path);
-            destDir.Create();
+            else
+            {
+                destDir.Create();
+            }
             foreach (DirectoryInfo dir in sourceDir.GetDirectories())
             {
                 CopyDirectory(dir, destDir.FullName, progressState);
@@ -245,55 +248,6 @@ namespace FManagerApp.Forms
 
                 Byte[] streamBuffer = new Byte[BUFFER_LENGTH];
 
-                /*using (FileStream sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read))
-                {
-                    long fileSize = sourceStream.Length;
-                    using (FileStream destinationStream = new FileStream(destination, FileMode.Create, FileAccess.Write))
-                    {
-                        int progress = 0;
-                        progressState.progressCurrentFile.Report(progress);
-                        int bytesRead = 0;
-                        while (true)
-                        {
-                            _cts.Token.ThrowIfCancellationRequested();
-                            bytesRead = sourceStream.Read(streamBuffer, 0, BUFFER_LENGTH);
-                            if (fileSize != 0)
-                            {
-                                progress = (int)Math.Round(100 * (double)totalBytesRead / fileSize);
-
-                                if (progress == 101)
-                                    progress--;
-                            }
-                            else
-                            {
-                                progress = 100;
-                                progressState.progressCurrentFile.Report(progress);
-                                progressState.progressAllFiles.Report(0);
-                                break;
-                            }
-                            if (bytesRead == 0)
-                            {
-                                // если ничего не считали
-                                progressState.progressCurrentFile.Report(progress);
-                                break;
-                            }
-
-                            destinationStream.Write(streamBuffer,0,bytesRead);
-                            progressState.progressCurrentFile.Report(progress);
-                            progressState.progressAllFiles.Report(bytesRead);
-                            totalBytesRead += bytesRead;
-
-                            if (bytesRead < BUFFER_LENGTH)
-                            {
-                                // конец
-                                progressState.progressCurrentFile.Report(progress);
-                                progressState.progressAllFiles.Report(bytesRead);
-                                break;
-                            }
-                        }
-                    }
-                }*/
-
                 sourceStream = new FileStream(source, FileMode.Open, FileAccess.Read);
                 long fileSize = sourceStream.Length;
                 destinationStream = new FileStream(destination, FileMode.Create, FileAccess.Write);
@@ -308,8 +262,8 @@ namespace FManagerApp.Forms
                     {
                         progress = (int)Math.Round(100 * (double)totalBytesRead / fileSize);
 
-                        if (progress == 101)
-                            progress--;
+                        /*if (progress == 101)
+                            progress--;*/
                     }
                     else
                     {
@@ -325,7 +279,7 @@ namespace FManagerApp.Forms
                         break;
                     }
 
-                    destinationStream.Write(streamBuffer,0,bytesRead);
+                    destinationStream.Write(streamBuffer, 0, bytesRead);
                     progressState.progressCurrentFile.Report(progress);
                     progressState.progressAllFiles.Report(bytesRead);
                     totalBytesRead += bytesRead;
@@ -333,16 +287,21 @@ namespace FManagerApp.Forms
                     if (bytesRead < BUFFER_LENGTH)
                     {
                         // конец
-                        progressState.progressCurrentFile.Report(progress);
+                        progressState.progressCurrentFile.Report(100);
                         progressState.progressAllFiles.Report(bytesRead);
                         break;
                     }
                 }
 
             }
+            catch (OperationCanceledException)
+            {
+                _cts.Cancel();
+                _cts.Token.ThrowIfCancellationRequested();
+            }
             catch (Exception e)
             {
-                MessageBox.Show("Ошибка при копировании файла:\n"+e.Message);
+                MessageBox.Show("Ошибка при копировании файла:\n" + e.Message);
                 _cts.Cancel();
                 _cts.Token.ThrowIfCancellationRequested();
             }
