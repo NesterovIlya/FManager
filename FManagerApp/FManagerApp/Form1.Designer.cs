@@ -83,6 +83,7 @@
             this.LeftListView.FullRowSelect = true;
             this.LeftListView.GridLines = true;
             this.LeftListView.HideSelection = false;
+            this.LeftListView.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.LeftListView.Location = new System.Drawing.Point(3, 60);
             this.LeftListView.Name = "LeftListView";
             this.LeftListView.Size = new System.Drawing.Size(448, 432);
@@ -128,8 +129,9 @@
             this.ShowButton.Name = "ShowButton";
             this.ShowButton.Size = new System.Drawing.Size(181, 23);
             this.ShowButton.TabIndex = 2;
-            this.ShowButton.Text = "Просмотр";
+            this.ShowButton.Text = "Просмотр сборки";
             this.ShowButton.UseVisualStyleBackColor = true;
+            this.ShowButton.Click += new System.EventHandler(this.ShowButton_Click);
             // 
             // CopyButton
             // 

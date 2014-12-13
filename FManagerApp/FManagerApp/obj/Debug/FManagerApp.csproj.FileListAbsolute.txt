@@ -21,3 +21,4 @@ D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.CopyForm.r
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.MoveForm.resources
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.DeleteForm.resources
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.RenameForm.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.ShowAssemblyForm.resources

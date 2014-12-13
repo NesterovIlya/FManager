@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using FManagerApp.Forms;
+using System.Reflection;
 
 namespace FManagerApp
 {
@@ -588,6 +589,51 @@ namespace FManagerApp
                 }
             }
             renameForm.Show();
+        }
+
+        private void ShowButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ShowAssemblyForm showAssemblyForm = new ShowAssemblyForm();
+                if (isLeftActive && LeftListView.SelectedItems.Count != 0)
+                {
+                    if (LeftListView.SelectedItems.Count > 1)
+                    {
+                        MessageBox.Show("Выбрано более одного элемента!");
+                        return;
+                    }
+                    string filename = (LeftListView.SelectedItems[0].SubItems[1].Text != "") ? LeftListView.SelectedItems[0].SubItems[0].Text + "." + LeftListView.SelectedItems[0].SubItems[1].Text : LeftListView.SelectedItems[0].SubItems[0].Text;
+                    string path = Path.Combine(LeftViewRootPath, filename);
+                    Assembly assembly = Assembly.LoadFrom(path);
+
+                }
+                else if (!isLeftActive && RightListView.SelectedItems.Count != 0)
+                {
+                    if (RightListView.SelectedItems.Count != 1)
+                    {
+                        MessageBox.Show("Выбрано более одного элемента!");
+                        return;
+                    }
+
+                    string filename = (RightListView.SelectedItems[0].SubItems[1].Text != "") ? RightListView.SelectedItems[0].SubItems[0].Text + "." + RightListView.SelectedItems[0].SubItems[1].Text : RightListView.SelectedItems[0].SubItems[0].Text;
+                    string path = Path.Combine(RightViewRootPath, filename);
+                    Assembly assembly = Assembly.LoadFrom(path);
+                }
+                showAssemblyForm.Show();
+            }
+            catch (BadImageFormatException)
+            {
+                MessageBox.Show("Выбранный файл не является допустимой сборкой.");
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Значение не найдено, либо модуль, который пытаются загрузить, не указывает расширение имени файла.");
+            }
+            catch (FileLoadException)
+            {
+                MessageBox.Show("Не удалось загрузить указанный объект.");
+            }
         }
 
 
