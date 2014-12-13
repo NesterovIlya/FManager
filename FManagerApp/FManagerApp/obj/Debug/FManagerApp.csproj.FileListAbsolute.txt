@@ -22,3 +22,7 @@ D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.MoveForm.re
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.DeleteForm.resources
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.RenameForm.resources
 D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.ShowAssemblyForm.resources
+D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.DeleteForm.resources
+D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.MoveForm.resources
+D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.RenameForm.resources
+D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.ShowAssemblyForm.resources

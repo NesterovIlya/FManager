@@ -48,7 +48,7 @@
             this.ClientSize = new System.Drawing.Size(626, 492);
             this.Controls.Add(this.AssemblyTreeView);
             this.Name = "ShowAssemblyForm";
-            this.Text = "ShowAssemblyForm";
+            this.Load += new System.EventHandler(this.ShowAssemblyForm_Load);
             this.ResumeLayout(false);
 
         }

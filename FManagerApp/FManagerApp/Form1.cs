@@ -19,7 +19,7 @@ namespace FManagerApp
         private List<Button> RightLogicalDrives = new List<Button>();
 
         private string LeftViewRootPath = "C:\\";
-        private string RightViewRootPath = "C:\\";
+        private string RightViewRootPath = "D:\\works\\FManager\\FManagerApp\\FManagerApp\\bin\\Debug";
 
         private FileSystemWatcher LeftViewObserver = new FileSystemWatcher();
         private FileSystemWatcher RightViewObserver = new FileSystemWatcher();
@@ -606,7 +606,8 @@ namespace FManagerApp
                     string filename = (LeftListView.SelectedItems[0].SubItems[1].Text != "") ? LeftListView.SelectedItems[0].SubItems[0].Text + "." + LeftListView.SelectedItems[0].SubItems[1].Text : LeftListView.SelectedItems[0].SubItems[0].Text;
                     string path = Path.Combine(LeftViewRootPath, filename);
                     Assembly assembly = Assembly.LoadFrom(path);
-
+                    showAssemblyForm.Text = filename;
+                    showAssemblyForm.assembly = assembly;
                 }
                 else if (!isLeftActive && RightListView.SelectedItems.Count != 0)
                 {
@@ -619,6 +620,8 @@ namespace FManagerApp
                     string filename = (RightListView.SelectedItems[0].SubItems[1].Text != "") ? RightListView.SelectedItems[0].SubItems[0].Text + "." + RightListView.SelectedItems[0].SubItems[1].Text : RightListView.SelectedItems[0].SubItems[0].Text;
                     string path = Path.Combine(RightViewRootPath, filename);
                     Assembly assembly = Assembly.LoadFrom(path);
+                    showAssemblyForm.Text = filename;
+                    showAssemblyForm.assembly = assembly;
                 }
                 showAssemblyForm.Show();
             }
