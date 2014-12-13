@@ -26,3 +26,4 @@ D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.DeleteForm
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.MoveForm.resources
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.RenameForm.resources
 D:\Works\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.ShowAssemblyForm.resources
+D:\work\FManager\FManagerApp\FManagerApp\obj\Debug\FManagerApp.Forms.FontSettingsForm.resources

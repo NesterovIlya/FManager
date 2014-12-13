@@ -31,6 +31,7 @@ namespace FManagerApp.Forms
                 AssemblyTreeView.Nodes.Add(treeNode);
                 AddInterfaces(treeNode,type);
                 AddFields(treeNode, type);
+                AddConstructors(treeNode, type);
                 AddMethods(treeNode,type);
             }
         }
@@ -95,7 +96,7 @@ namespace FManagerApp.Forms
             }
         }
 
-        private string GetParametersString(MethodInfo method)
+        private string GetParametersString(MethodBase method)
         {
             string args = "(";
             ParameterInfo[] parameterInfoArr = method.GetParameters();
@@ -106,6 +107,20 @@ namespace FManagerApp.Forms
             }
             args += ")";
             return args;
+        }
+
+        private void AddConstructors(TreeNode root, Type type)
+        {
+            TreeNode headerNode = new TreeNode("Конструкторы");
+            root.Nodes.Add(headerNode);
+            foreach (ConstructorInfo constructor in type.GetConstructors(BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Instance))
+            {
+                headerNode.Nodes.Add(new TreeNode("private " + constructor.Name + GetParametersString(constructor)));
+            }
+            foreach (ConstructorInfo constructor in type.GetConstructors(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance))
+            {
+                headerNode.Nodes.Add(new TreeNode("public " + constructor.Name + GetParametersString(constructor)));
+            }
         }
 
     }

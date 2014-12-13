@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.IO;
 using FManagerApp.Forms;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace FManagerApp
 {
@@ -19,7 +21,7 @@ namespace FManagerApp
         private List<Button> RightLogicalDrives = new List<Button>();
 
         private string LeftViewRootPath = "C:\\";
-        private string RightViewRootPath = "D:\\works\\FManager\\FManagerApp\\FManagerApp\\bin\\Debug";
+        private string RightViewRootPath = "C:\\";
 
         private FileSystemWatcher LeftViewObserver = new FileSystemWatcher();
         private FileSystemWatcher RightViewObserver = new FileSystemWatcher();
@@ -34,6 +36,7 @@ namespace FManagerApp
         private void Form1_Load(object sender, EventArgs e)
         {
             this.DoubleBuffered = true;
+            LoadFontSettings();
             UpdateDrivesPanel();
             ConfigurateObservers();
             UpdateListView(LeftListView, LeftViewRootPath);
@@ -106,12 +109,14 @@ namespace FManagerApp
 
                 foreach (DirectoryInfo folder in folders)
                 {
-                    listView.Items.Add(BuildListViewItem(
+                    ListViewItem item = BuildListViewItem(
                         System.IO.Path.GetFileName(folder.FullName),
                         "",
                         "<папка>",
                         folder.CreationTime.ToShortDateString() + " " + folder.CreationTime.ToShortTimeString()
-                    ));
+                    );
+                    item.ImageIndex = 0;
+                    listView.Items.Add(item);
                 }
 
                 foreach (FileInfo file in files)
@@ -639,6 +644,50 @@ namespace FManagerApp
             }
         }
 
+        private void FontSettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            FontSettingsForm fontSettingForm = new FontSettingsForm();
+            fontSettingForm.ShowDialog();
+            LoadFontSettings();
+        }
+
+        private void LoadFontSettings()
+        {
+            FileStream fs = null;
+            XmlDictionaryReader reader = null;
+            try
+            {
+                fs = new FileStream("settings.xml", FileMode.Open);
+                XmlDictionaryReaderQuotas quotas = new XmlDictionaryReaderQuotas();
+                reader = XmlDictionaryReader.CreateTextReader(fs, quotas);
+                DataContractSerializer ser = new DataContractSerializer(typeof(Settings));
+
+                Settings fontSettings =
+                    (Settings)ser.ReadObject(reader, true);
+
+                LeftListView.Font = new Font(FontFamily.GenericSansSerif, fontSettings.FontSize);
+                LeftListView.ForeColor = fontSettings.FontColor;
+                RightListView.Font = new Font(FontFamily.GenericSansSerif, fontSettings.FontSize);
+                RightListView.ForeColor = fontSettings.FontColor;
+            }
+            catch (System.Xml.XmlException)
+            {
+                MessageBox.Show("Ошибка при десериализации!");
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                MessageBox.Show("Файл не найден!");
+            }
+            catch (System.Runtime.Serialization.SerializationException)
+            {
+                MessageBox.Show("Файл поврежден и не может быть открыт!");
+            }
+            finally
+            {
+                if (reader != null) reader.Dispose();
+                fs.Close();
+            }
+        }
 
     }
 }

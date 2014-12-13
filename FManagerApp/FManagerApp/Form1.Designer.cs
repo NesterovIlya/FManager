@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.LeftPanel = new System.Windows.Forms.Panel();
             this.LeftDrivesPanel = new System.Windows.Forms.Panel();
             this.LeftListView = new System.Windows.Forms.ListView();
@@ -50,14 +52,19 @@
             this.RightPathTextBox = new System.Windows.Forms.TextBox();
             this.BottomPanel = new System.Windows.Forms.Panel();
             this.RightDrivesPanel = new System.Windows.Forms.Panel();
+            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FontSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.IconsImageList = new System.Windows.Forms.ImageList(this.components);
             this.LeftPanel.SuspendLayout();
             this.RightPanel.SuspendLayout();
             this.BottomPanel.SuspendLayout();
+            this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // LeftPanel
             // 
-            this.LeftPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.LeftPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.LeftPanel.Controls.Add(this.LeftDrivesPanel);
             this.LeftPanel.Controls.Add(this.LeftListView);
             this.LeftPanel.Controls.Add(this.LeftPathTextBox);
@@ -68,6 +75,7 @@
             // 
             // LeftDrivesPanel
             // 
+            this.LeftDrivesPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.LeftDrivesPanel.Location = new System.Drawing.Point(0, 0);
             this.LeftDrivesPanel.Name = "LeftDrivesPanel";
             this.LeftDrivesPanel.Size = new System.Drawing.Size(456, 33);
@@ -87,6 +95,7 @@
             this.LeftListView.Location = new System.Drawing.Point(3, 60);
             this.LeftListView.Name = "LeftListView";
             this.LeftListView.Size = new System.Drawing.Size(448, 432);
+            this.LeftListView.SmallImageList = this.IconsImageList;
             this.LeftListView.TabIndex = 5;
             this.LeftListView.UseCompatibleStateImageBehavior = false;
             this.LeftListView.View = System.Windows.Forms.View.Details;
@@ -175,7 +184,7 @@
             // 
             // RightPanel
             // 
-            this.RightPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.RightPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.RightPanel.Controls.Add(this.RightListView);
             this.RightPanel.Controls.Add(this.RightPathTextBox);
             this.RightPanel.Location = new System.Drawing.Point(484, 33);
@@ -196,6 +205,7 @@
             this.RightListView.Location = new System.Drawing.Point(3, 59);
             this.RightListView.Name = "RightListView";
             this.RightListView.Size = new System.Drawing.Size(449, 432);
+            this.RightListView.SmallImageList = this.IconsImageList;
             this.RightListView.TabIndex = 7;
             this.RightListView.UseCompatibleStateImageBehavior = false;
             this.RightListView.View = System.Windows.Forms.View.Details;
@@ -235,7 +245,7 @@
             this.BottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.BottomPanel.AutoSize = true;
-            this.BottomPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BottomPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BottomPanel.Controls.Add(this.ShowButton);
             this.BottomPanel.Controls.Add(this.DeleteButton);
             this.BottomPanel.Controls.Add(this.CopyButton);
@@ -253,17 +263,51 @@
             this.RightDrivesPanel.Size = new System.Drawing.Size(457, 33);
             this.RightDrivesPanel.TabIndex = 8;
             // 
+            // MainMenu
+            // 
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.настройкиToolStripMenuItem});
+            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.MainMenu.Size = new System.Drawing.Size(954, 24);
+            this.MainMenu.TabIndex = 9;
+            this.MainMenu.Text = "menuStrip1";
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FontSettingsMenuItem});
+            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.настройкиToolStripMenuItem.Text = "Настройки";
+            // 
+            // FontSettingsMenuItem
+            // 
+            this.FontSettingsMenuItem.Name = "FontSettingsMenuItem";
+            this.FontSettingsMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.FontSettingsMenuItem.Text = "Настройки шрифта";
+            this.FontSettingsMenuItem.Click += new System.EventHandler(this.FontSettingsMenuItem_Click);
+            // 
+            // IconsImageList
+            // 
+            this.IconsImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("IconsImageList.ImageStream")));
+            this.IconsImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.IconsImageList.Images.SetKeyName(0, "folder.png");
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(954, 594);
             this.Controls.Add(this.RightDrivesPanel);
             this.Controls.Add(this.RightPanel);
             this.Controls.Add(this.LeftPanel);
             this.Controls.Add(this.BottomPanel);
+            this.Controls.Add(this.MainMenu);
+            this.MainMenuStrip = this.MainMenu;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FManager";
@@ -273,6 +317,8 @@
             this.RightPanel.ResumeLayout(false);
             this.RightPanel.PerformLayout();
             this.BottomPanel.ResumeLayout(false);
+            this.MainMenu.ResumeLayout(false);
+            this.MainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,6 +348,10 @@
         private System.Windows.Forms.ColumnHeader DateHeader4;
         private System.Windows.Forms.Panel LeftDrivesPanel;
         private System.Windows.Forms.Panel RightDrivesPanel;
+        private System.Windows.Forms.MenuStrip MainMenu;
+        private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FontSettingsMenuItem;
+        private System.Windows.Forms.ImageList IconsImageList;
     }
 }
 
